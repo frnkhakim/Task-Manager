@@ -66,8 +66,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Constants\" />
+	  <Folder Include="Controls\" />
+	  <Folder Include="Converters\" />
+	  <Folder Include="Data\Database\" />
+	  <Folder Include="Data\Repositories\" />
+	  <Folder Include="Helpers\" />
+	  <Folder Include="Interfaces\" />
+	  <Folder Include="ViewModels\" />
+	  <Folder Include="Themes\" />
+	  <Folder Include="Services\" />
+	  <Folder Include="Views\Settings\" />
+	  <Folder Include="Views\Tasks\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Views\Home\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
 	</ItemGroup>
 
 </Project>
