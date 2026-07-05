@@ -79,7 +79,6 @@
 	  <Folder Include="Data\Database\" />
 	  <Folder Include="Data\Repositories\" />
 	  <Folder Include="Helpers\" />
-	  <Folder Include="Interfaces\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Themes\" />
 	  <Folder Include="Services\" />

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Task_Manager.Models.Enums;
 
 namespace Task_Manager.Models
 {
@@ -14,12 +15,17 @@ namespace Task_Manager.Models
         public bool IsCompleted { get; private set; }
         public DateTime CreatedDate { get; }
 
+        public Priority Priority { get; private set; }
+        public Category? Category { get; private set; }
+
         public TaskItem(string title, DateTime dueDate)
         {
             if (string.IsNullOrWhiteSpace(title))
             {
                 throw new ArgumentException("Title cannot be empty.", nameof(title));
             }
+            Category = Category ??
+                throw new ArgumentNullException(nameof(Category));
 
             Id = Guid.NewGuid();
 
@@ -32,6 +38,8 @@ namespace Task_Manager.Models
             IsCompleted = false;
 
             CreatedDate = DateTime.Now;
+
+            Priority = Priority.Medium;
         }
 
         public void Rename(string newTitle)
@@ -69,6 +77,18 @@ namespace Task_Manager.Models
         public void UpdateDescription(string description)
         {
             Description = description ?? string.Empty;
+        }
+
+        public bool IsOverdue => !IsCompleted && DueDate.Date < DateTime.Today;
+
+        public void ChangePriority(Priority newPriority)
+        {
+            Priority = newPriority;
+        }
+
+        public void ChangeCategory(Category? category)
+        {
+            Category = category;
         }
     }
 }
