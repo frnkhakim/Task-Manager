@@ -3,7 +3,7 @@ using Android.Runtime;
 
 namespace Task_Manager
 {
-    [Application]
+    [Application(Theme = "@style/Maui.MainTheme.NoActionBar")]
     public class MainApplication : MauiApplication
     {
         public MainApplication(IntPtr handle, JniHandleOwnership ownership)
