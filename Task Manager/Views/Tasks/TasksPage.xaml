@@ -4,7 +4,8 @@
     x:Class="Task_Manager.Views.Tasks.TasksPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="{Binding Title}">
+    Title="{Binding Title}"
+    BackgroundColor="White">
 
     <ScrollView>
 
@@ -14,30 +15,25 @@
 
             <Entry
                 Placeholder="Task Title"
-                Text="{Binding TaskTitle}" />
+                Text="{Binding TaskTitle}"/>
 
             <Editor
                 Placeholder="Description"
                 AutoSize="TextChanges"
                 HeightRequest="100"
-                Text="{Binding Description}" />
+                Text="{Binding Description}"/>
 
             <DatePicker
-                Date="{Binding DueDate}" />
+                Date="{Binding DueDate}"/>
 
             <Picker
+                x:Name="PriorityPicker"
                 Title="Priority"
-                SelectedItem="{Binding Priority}">
-
-                <x:String>Low</x:String>
-                <x:String>Medium</x:String>
-                <x:String>High</x:String>
-
-            </Picker>
+                SelectedItem="{Binding Priority}"/>
 
             <Button
                 Text="Add Task"
-                Command="{Binding AddTaskCommand}" />
+                Command="{Binding AddTaskCommand}"/>
 
             <CollectionView
                 ItemsSource="{Binding Tasks}">
@@ -49,7 +45,7 @@
 
                         <Label
                             HorizontalOptions="Center"
-                            Text="No tasks yet." />
+                            Text="No tasks yet."/>
 
                     </VerticalStackLayout>
 
@@ -59,27 +55,85 @@
 
                     <DataTemplate>
 
-                        <Frame
-                            Margin="0,5"
-                            Padding="15">
+                        <SwipeView>
 
-                            <VerticalStackLayout>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem
+                                        Text="Delete"
+                                        BackgroundColor="Red"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteTaskCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
 
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontSize="18"
-                                    Text="{Binding Title}" />
+                            <Frame
+                                Margin="0,5"
+                                Padding="15"
+                                BorderColor="LightGray">
 
-                                <Label
-                                    Text="{Binding Description}" />
+                                <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="10">
 
-                                <Label
-                                    FontSize="12"
-                                    Text="{Binding DueDate}" />
+                                    <CheckBox
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Grid.RowSpan="4"
+                                        VerticalOptions="Center"
+                                        IsChecked="{Binding IsCompleted}"
+                                        CheckedChanged="OnTaskCheckedChanged"/>
 
-                            </VerticalStackLayout>
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        Text="{Binding Title}"/>
 
-                        </Frame>
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding Description}"
+                                        TextColor="Gray"/>
+
+                                    <HorizontalStackLayout
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        Spacing="10">
+
+                                        <Label
+                                            FontSize="12"
+                                            Text="{Binding DueDate, StringFormat='Due: {0:MMM dd, yyyy}'}"/>
+
+                                        <Label
+                                            FontSize="12"
+                                            FontAttributes="Bold"
+                                            Text="OVERDUE"
+                                            TextColor="Red"
+                                            IsVisible="{Binding IsOverdue}"/>
+
+                                    </HorizontalStackLayout>
+
+                                    <Label
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        FontSize="12"
+                                        FontAttributes="Bold"
+                                        Text="{Binding Priority, StringFormat='Priority: {0}'}"/>
+
+                                    <Button
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Grid.RowSpan="4"
+                                        Text="Edit"
+                                        VerticalOptions="Center"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditTaskCommand}"
+                                        CommandParameter="{Binding .}"/>
+
+                                </Grid>
+
+                            </Frame>
+
+                        </SwipeView>
 
                     </DataTemplate>
 

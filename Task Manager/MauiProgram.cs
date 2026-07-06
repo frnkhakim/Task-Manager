@@ -29,7 +29,8 @@ namespace Task_Manager
 
                 var database = new AppDatabase(databasePath);
 
-                database.InitializeAsync().GetAwaiter().GetResult();
+                // Don't block the UI thread - initialize lazily
+                _ = database.InitializeAsync();
 
                 return database;
             });
@@ -38,6 +39,7 @@ namespace Task_Manager
             builder.Services.AddTransient<TasksViewModel>();
             builder.Services.AddTransient<TasksPage>();
             builder.Services.AddSingleton<IDialogService, MauiDialogService>();
+            builder.Services.AddSingleton<AppShell>();
 
 
 #if DEBUG

@@ -89,4 +89,60 @@ public partial class TasksViewModel : BaseViewModel
         DueDate = DateTime.Today;
         Priority = Priority.Medium;
     }
+
+    [RelayCommand]
+    private async Task DeleteTaskAsync(TaskItem task)
+    {
+        if (task == null)
+            return;
+
+        var confirm = await _dialogService.ShowConfirmAsync(
+            "Delete Task",
+            $"Are you sure you want to delete '{task.Title}'?",
+            "Yes",
+            "No");
+
+        if (confirm)
+        {
+            await _taskService.DeleteTaskAsync(task.Id);
+            Tasks.Remove(task);
+        }
+    }
+
+    [RelayCommand]
+    private async Task EditTaskAsync(TaskItem task)
+    {
+        if (task == null)
+            return;
+
+        // For now, we'll populate the input fields with the task data
+        // In a full app, you'd want a separate edit page or dialog
+        TaskTitle = task.Title;
+        Description = task.Description;
+        DueDate = task.DueDate;
+        Priority = task.Priority;
+
+        // Remove the old task from the list
+        Tasks.Remove(task);
+
+        // Delete from database so it can be re-added with updates
+        await _taskService.DeleteTaskAsync(task.Id);
+    }
+
+    public async Task ToggleTaskCompletionAsync(TaskItem task)
+    {
+        if (task == null)
+            return;
+
+        if (task.IsCompleted)
+        {
+            task.Reopen();
+        }
+        else
+        {
+            task.MarkAsCompleted();
+        }
+
+        await _taskService.UpdateTaskAsync(task);
+    }
 }

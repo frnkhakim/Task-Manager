@@ -1,33 +1,38 @@
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.VisualBasic;
-using Task_Manager.Interfaces;
+using Task_Manager.ViewModels;
+using Task_Manager.Models.Enums;
 using Task_Manager.Models;
-using Task_Manager.Services;
-using static Android.Util.EventLogTags;
 
-[RelayCommand]
-private async Task AddTaskAsync()
+namespace Task_Manager.Views.Tasks;
+
+public partial class TasksPage : ContentPage
 {
-    if (string.IsNullOrWhiteSpace(TaskTitle))
-    {
-        await _dialogService.ShowAlertAsync(
-            "Validation",
-            "Please enter a task title.");
+    private readonly TasksViewModel _viewModel;
 
-        return;
+    public TasksPage(TasksViewModel viewModel)
+    {
+        InitializeComponent();
+
+        PriorityPicker.ItemsSource = Enum.GetValues<Priority>().ToList();
+
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
     }
 
-    var task = new TaskItem(TaskTitle, DueDate);
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
 
-    task.UpdateDescription(Description);
-    task.ChangePriority(Priority);
+        if (!_viewModel.IsBusy)
+        {
+            _viewModel.LoadTasksCommand.Execute(null);
+        }
+    }
 
-    await _taskService.CreateTaskAsync(task);
-
-    Tasks.Add(task);
-
-    TaskTitle = string.Empty;
-    Description = string.Empty;
-    DueDate = DateTime.Today;
-    Priority = Priority.Medium;
+    private async void OnTaskCheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (sender is CheckBox checkBox && checkBox.BindingContext is TaskItem task)
+        {
+            await _viewModel.ToggleTaskCompletionAsync(task);
+        }
+    }
 }
