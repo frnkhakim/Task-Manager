@@ -76,12 +76,10 @@
 	  <Folder Include="Constants\" />
 	  <Folder Include="Controls\" />
 	  <Folder Include="Converters\" />
-	  <Folder Include="Data\Database\" />
-	  <Folder Include="Data\Repositories\" />
 	  <Folder Include="Helpers\" />
+	  <Folder Include="Domain\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Themes\" />
-	  <Folder Include="Services\" />
 	  <Folder Include="Views\Settings\" />
 	  <Folder Include="Views\Tasks\" />
 	</ItemGroup>

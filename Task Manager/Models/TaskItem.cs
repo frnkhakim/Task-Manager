@@ -1,5 +1,4 @@
-﻿using Android.Provider;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using Task_Manager.Models.Enums;
@@ -8,12 +7,12 @@ namespace Task_Manager.Models
 {
     public class TaskItem
     {
-        public Guid Id { get;} = Guid.NewGuid();
+        public Guid Id { get; private set; }
         public string Title { get; private set; } = string.Empty;
         public string Description { get; private set; }= string.Empty;
         public DateTime DueDate { get; private set; }
         public bool IsCompleted { get; private set; }
-        public DateTime CreatedDate { get; }
+        public DateTime CreatedDate { get; private set; }
 
         public Priority Priority { get; private set; }
         public Category? Category { get; private set; }
@@ -21,25 +20,14 @@ namespace Task_Manager.Models
         public TaskItem(string title, DateTime dueDate)
         {
             if (string.IsNullOrWhiteSpace(title))
-            {
                 throw new ArgumentException("Title cannot be empty.", nameof(title));
-            }
-            Category = Category ??
-                throw new ArgumentNullException(nameof(Category));
 
             Id = Guid.NewGuid();
-
             Title = title;
-
             DueDate = dueDate;
-
-            Description = string.Empty;
-
-            IsCompleted = false;
-
             CreatedDate = DateTime.Now;
-
-            Priority = Priority.Medium;
+            Description = string.Empty;
+            Priority = Priority.Medium; 
         }
 
         public void Rename(string newTitle)
