@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
+using System.IO;
 using Task_Manager.Data.Database;
 using Task_Manager.Data.Repositories;
 using Task_Manager.Interfaces;
-using System.IO;
 using Task_Manager.Services;
+using Task_Manager.ViewModels;
+using Task_Manager.Views.Tasks;
 
 namespace Task_Manager
 {
@@ -33,6 +35,8 @@ namespace Task_Manager
             });
             builder.Services.AddSingleton<ITaskRepository, SQLiteTaskRepository>();
             builder.Services.AddTransient<TaskService>();
+            builder.Services.AddTransient<TasksViewModel>();
+            builder.Services.AddTransient<TasksPage>();
 
 
 #if DEBUG

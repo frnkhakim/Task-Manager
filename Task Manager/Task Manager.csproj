@@ -78,14 +78,15 @@
 	  <Folder Include="Converters\" />
 	  <Folder Include="Helpers\" />
 	  <Folder Include="Domain\" />
-	  <Folder Include="ViewModels\" />
 	  <Folder Include="Themes\" />
 	  <Folder Include="Views\Settings\" />
-	  <Folder Include="Views\Tasks\" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Update="Views\Home\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
+	  <None Update="Views\Tasks\TasksPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </None>
 	</ItemGroup>
