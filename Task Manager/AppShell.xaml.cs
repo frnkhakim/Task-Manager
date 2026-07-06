@@ -15,7 +15,7 @@
             // Toggle theme
             if (Application.Current != null && sender is Button button)
             {
-                if (Application.Current.UserAppTheme == AppTheme.Dark)
+                if (Application.Current.RequestedTheme == AppTheme.Dark)
                 {
                     Application.Current.UserAppTheme = AppTheme.Light;
                     button.Text = "🌙";
@@ -32,7 +32,7 @@
         {
             if (Application.Current != null && ThemeToggleButton != null)
             {
-                ThemeToggleButton.Text = Application.Current.UserAppTheme == AppTheme.Dark 
+                ThemeToggleButton.Text = Application.Current.RequestedTheme == AppTheme.Dark
                     ? "☀️"
                     : "🌙";
             }
