@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Task_Manager.Models.Enums;
@@ -7,15 +8,21 @@ namespace Task_Manager.Models
 {
     public class TaskItem
     {
-        public Guid Id { get; private set; }
-        public string Title { get; private set; } = string.Empty;
-        public string Description { get; private set; }= string.Empty;
-        public DateTime DueDate { get; private set; }
-        public bool IsCompleted { get; private set; }
-        public DateTime CreatedDate { get; private set; }
+        [PrimaryKey]
+        public Guid Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public DateTime DueDate { get; set; }
+        public bool IsCompleted { get; set; }
+        public DateTime CreatedDate { get; set; }
 
-        public Priority Priority { get; private set; }
-        public Category? Category { get; private set; }
+        public Priority Priority { get; set; }
+        public Guid? CategoryId { get; set; }
+
+        [Ignore]
+        public Category? Category { get; set; }
+
+        public TaskItem() { }
 
         public TaskItem(string title, DateTime dueDate)
         {
@@ -77,6 +84,7 @@ namespace Task_Manager.Models
         public void ChangeCategory(Category? category)
         {
             Category = category;
+            CategoryId = category?.Id;
         }
     }
 }

@@ -37,6 +37,7 @@ namespace Task_Manager
             builder.Services.AddTransient<TaskService>();
             builder.Services.AddTransient<TasksViewModel>();
             builder.Services.AddTransient<TasksPage>();
+            builder.Services.AddSingleton<IDialogService, MauiDialogService>();
 
 
 #if DEBUG

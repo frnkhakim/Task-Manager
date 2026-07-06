@@ -24,7 +24,7 @@ namespace Task_Manager.Data.Repositories
         public async Task<IReadOnlyList<TaskItem>> GetAllAsync()
         {
             return await _database
-                .connection
+                .Connection
                 .Table<TaskItem>()
                 .ToListAsync();
         }
@@ -32,7 +32,7 @@ namespace Task_Manager.Data.Repositories
         public async Task<TaskItem?> GetByIdAsync(Guid id)
         {
             return await _database
-                .connection
+                .Connection
                 .Table<TaskItem>()
                 .Where(t => t.Id == id)
                 .FirstOrDefaultAsync();
@@ -40,13 +40,13 @@ namespace Task_Manager.Data.Repositories
 
         public async Task UpdateAsync(TaskItem task)
         {
-            await _database.connection.UpdateAsync(task);
+            await _database.Connection.UpdateAsync(task);
         }
 
         public async Task DeleteAsync(Guid id)
         {
             await _database
-                .connection
+                .Connection
                 .DeleteAsync<TaskItem>(id);
         }
     }

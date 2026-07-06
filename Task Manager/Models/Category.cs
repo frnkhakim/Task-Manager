@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,8 +7,11 @@ namespace Task_Manager.Models
 {
     public class Category
     {
-        public Guid Id { get; } = Guid.NewGuid();
-        public string Name { get; private set; } = string.Empty;
+        [PrimaryKey]
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Name { get; set; } = string.Empty;
+
+        public Category() { }
 
         public Category(string name)
         {

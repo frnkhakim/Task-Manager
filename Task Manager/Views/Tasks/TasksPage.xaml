@@ -1,37 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage
     x:Class="Task_Manager.Views.Tasks.TasksPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding Title}">
 
-    <VerticalStackLayout Padding="20">
+    <ScrollView>
 
-        <Button
-            Text="Load Tasks"
-            Command="{Binding LoadTasksCommand}" />
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="16">
 
-        <CollectionView ItemsSource="{Binding Tasks}">
+            <Entry
+                Placeholder="Task Title"
+                Text="{Binding TaskTitle}" />
 
-            <CollectionView.ItemTemplate>
+            <Editor
+                Placeholder="Description"
+                AutoSize="TextChanges"
+                HeightRequest="100"
+                Text="{Binding Description}" />
 
-                <DataTemplate>
+            <DatePicker
+                Date="{Binding DueDate}" />
 
-                    <VerticalStackLayout Padding="10">
+            <Picker
+                Title="Priority"
+                SelectedItem="{Binding Priority}">
+
+                <x:String>Low</x:String>
+                <x:String>Medium</x:String>
+                <x:String>High</x:String>
+
+            </Picker>
+
+            <Button
+                Text="Add Task"
+                Command="{Binding AddTaskCommand}" />
+
+            <CollectionView
+                ItemsSource="{Binding Tasks}">
+
+                <CollectionView.EmptyView>
+
+                    <VerticalStackLayout
+                        Padding="30">
 
                         <Label
-                            FontAttributes="Bold"
-                            Text="{Binding Title}" />
-
-                        <Label
-                            Text="{Binding Description}" />
+                            HorizontalOptions="Center"
+                            Text="No tasks yet." />
 
                     </VerticalStackLayout>
 
-                </DataTemplate>
+                </CollectionView.EmptyView>
 
-            </CollectionView.ItemTemplate>
+                <CollectionView.ItemTemplate>
 
-        </CollectionView>
+                    <DataTemplate>
 
-    </VerticalStackLayout>
+                        <Frame
+                            Margin="0,5"
+                            Padding="15">
+
+                            <VerticalStackLayout>
+
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="18"
+                                    Text="{Binding Title}" />
+
+                                <Label
+                                    Text="{Binding Description}" />
+
+                                <Label
+                                    FontSize="12"
+                                    Text="{Binding DueDate}" />
+
+                            </VerticalStackLayout>
+
+                        </Frame>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
 
 </ContentPage>
