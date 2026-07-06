@@ -6,6 +6,26 @@
     xmlns:tasks="clr-namespace:Task_Manager.Views.Tasks"
     Title="Task_Manager">
 
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="*,Auto" Padding="10,0">
+            <Label 
+                Grid.Column="0"
+                Text="Task Manager"
+                FontSize="20"
+                FontAttributes="Bold"
+                VerticalOptions="Center"
+                TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+            <Button 
+                Grid.Column="1"
+                Text="🌙"
+                x:Name="ThemeToggleButton"
+                Clicked="OnThemeToggleClicked"
+                BackgroundColor="Transparent"
+                WidthRequest="50"
+                HeightRequest="40"/>
+        </Grid>
+    </Shell.TitleView>
+
     <ShellContent
         Title="Tasks"
         ContentTemplate="{DataTemplate tasks:TasksPage}"

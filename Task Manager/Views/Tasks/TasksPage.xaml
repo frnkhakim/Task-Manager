@@ -5,7 +5,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="{Binding Title}"
-    BackgroundColor="White">
+    BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLight}, Dark={StaticResource PageBackgroundColorDark}}">
 
     <ScrollView>
 
@@ -15,21 +15,27 @@
 
             <Entry
                 Placeholder="Task Title"
-                Text="{Binding TaskTitle}"/>
+                Text="{Binding TaskTitle}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource InputBackgroundColorLight}, Dark={StaticResource InputBackgroundColorDark}}"
+                TextColor="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}"/>
 
             <Editor
                 Placeholder="Description"
                 AutoSize="TextChanges"
                 HeightRequest="100"
-                Text="{Binding Description}"/>
+                Text="{Binding Description}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource InputBackgroundColorLight}, Dark={StaticResource InputBackgroundColorDark}}"
+                TextColor="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}"/>
 
             <DatePicker
-                Date="{Binding DueDate}"/>
+                Date="{Binding DueDate}"
+                TextColor="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}"/>
 
             <Picker
                 x:Name="PriorityPicker"
                 Title="Priority"
-                SelectedItem="{Binding Priority}"/>
+                SelectedItem="{Binding Priority}"
+                TextColor="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}"/>
 
             <Button
                 Text="Add Task"
@@ -45,7 +51,8 @@
 
                         <Label
                             HorizontalOptions="Center"
-                            Text="No tasks yet."/>
+                            Text="No tasks yet."
+                            TextColor="{AppThemeBinding Light={StaticResource TextColorSecondaryLight}, Dark={StaticResource TextColorSecondaryDark}}"/>
 
                     </VerticalStackLayout>
 
@@ -70,7 +77,8 @@
                             <Frame
                                 Margin="0,5"
                                 Padding="15"
-                                BorderColor="LightGray">
+                                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundColorLight}, Dark={StaticResource CardBackgroundColorDark}}"
+                                BorderColor="{AppThemeBinding Light={StaticResource BorderColorLight}, Dark={StaticResource BorderColorDark}}">
 
                                 <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="10">
 
@@ -87,13 +95,14 @@
                                         Grid.Column="1"
                                         FontAttributes="Bold"
                                         FontSize="18"
-                                        Text="{Binding Title}"/>
+                                        Text="{Binding Title}"
+                                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}"/>
 
                                     <Label
                                         Grid.Row="1"
                                         Grid.Column="1"
                                         Text="{Binding Description}"
-                                        TextColor="Gray"/>
+                                        TextColor="{AppThemeBinding Light={StaticResource TextColorSecondaryLight}, Dark={StaticResource TextColorSecondaryDark}}"/>
 
                                     <HorizontalStackLayout
                                         Grid.Row="2"
@@ -102,13 +111,14 @@
 
                                         <Label
                                             FontSize="12"
-                                            Text="{Binding DueDate, StringFormat='Due: {0:MMM dd, yyyy}'}"/>
+                                            Text="{Binding DueDate, StringFormat='Due: {0:MMM dd, yyyy}'}"
+                                            TextColor="{AppThemeBinding Light={StaticResource TextColorSecondaryLight}, Dark={StaticResource TextColorSecondaryDark}}"/>
 
                                         <Label
                                             FontSize="12"
                                             FontAttributes="Bold"
                                             Text="OVERDUE"
-                                            TextColor="Red"
+                                            TextColor="{StaticResource OverdueColor}"
                                             IsVisible="{Binding IsOverdue}"/>
 
                                     </HorizontalStackLayout>
@@ -118,7 +128,8 @@
                                         Grid.Column="1"
                                         FontSize="12"
                                         FontAttributes="Bold"
-                                        Text="{Binding Priority, StringFormat='Priority: {0}'}"/>
+                                        Text="{Binding Priority, StringFormat='Priority: {0}'}"
+                                        TextColor="{AppThemeBinding Light={StaticResource TextColorSecondaryLight}, Dark={StaticResource TextColorSecondaryDark}}"/>
 
                                     <Button
                                         Grid.Row="0"
